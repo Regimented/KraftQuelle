@@ -1,0 +1,211 @@
+/* src/styles/Breadcrumb.css */
+.breadcrumb-nav {
+  width: 100%;
+  max-width: 1700px; /* Match with page-layout max-width */
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid rgba(128, 128, 230, 0.2); /* Subtle purple-tinted border */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(
+    30,
+    30,
+    40,
+    0.85
+  ); /* Slightly purple-tinted dark background */
+  backdrop-filter: blur(8px); /* Creates the blur effect */
+  -webkit-backdrop-filter: blur(8px); /* For Safari */
+  z-index: 20; /* Higher than SideNav and Minimap */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on very small screens */
+  align-items: center;
+  box-shadow:
+    0 4px 20px rgba(40, 40, 100, 0.15),
+    0 2px 5px rgba(0, 0, 0, 0.1); /* Multi-layered shadow for depth */
+}
+
+.breadcrumb-nav a {
+  font-size: 1.25rem;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  color: #646cff; /* Match with h1/h2 color */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition with easing */
+  white-space: nowrap; /* Prevent breaking in the middle of links */
+  position: relative;
+  padding: 0.2rem 0.1rem;
+}
+
+.breadcrumb-nav a:hover {
+  color: #8f97ff; /* Lighter version of the link color */
+  transform: translateY(-1px); /* Subtle lift effect on hover */
+}
+
+/* Underline effect on hover */
+.breadcrumb-nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #8f97ff;
+  transition: width 0.3s ease;
+}
+
+.breadcrumb-nav a:hover::after {
+  width: 100%;
+}
+
+.breadcrumb-nav span {
+  font-size: 1.25rem;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #ffffff;
+  white-space: nowrap; /* Prevent breaking in the middle of sections */
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-arrow {
+  margin: 0 0.5rem;
+  color: rgba(180, 180, 230, 0.6); /* Light purple tint */
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+/* Make breadcrumb arrows more prominent */
+.breadcrumb-item:hover .breadcrumb-arrow {
+  transform: scale(1.2);
+  color: rgba(180, 180, 230, 0.8);
+}
+
+.current-page {
+  margin-left: 0; /* No margin for the text after arrow */
+  font-weight: 600; /* Make current page slightly bolder */
+  color: rgba(255, 255, 255, 0.95); /* Slightly brighter than regular text */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  /* Adjust for no Minimap */
+  .breadcrumb-nav {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-nav {
+    padding: 0.5rem 1rem;
+  }
+
+  .breadcrumb-nav a,
+  .breadcrumb-nav span {
+    font-size: 1rem;
+  }
+
+  .breadcrumb-arrow {
+    width: 14px;
+    height: 14px;
+    margin: 0 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb-nav {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .breadcrumb-nav a,
+  .breadcrumb-nav span {
+    font-size: 0.875rem;
+  }
+
+  .breadcrumb-arrow {
+    width: 12px;
+    height: 12px;
+    margin: 0 0.3rem;
+  }
+
+  /* Simplify hover effects on mobile */
+  .breadcrumb-nav a::after {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .breadcrumb-nav {
+    background-color: rgba(
+      250,
+      250,
+      255,
+      0.85
+    ); /* Slightly purple-tinted light background */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(128, 128, 230, 0.15);
+    box-shadow:
+      0 4px 20px rgba(100, 100, 160, 0.08),
+      0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .breadcrumb-nav span {
+    color: #333344; /* Slightly purple-tinted dark text */
+  }
+
+  .breadcrumb-nav a {
+    color: #5659d2; /* Darker version of the link color for light mode */
+  }
+
+  .breadcrumb-nav a:hover {
+    color: #3c3faa; /* Even darker on hover for contrast */
+  }
+
+  .breadcrumb-nav a::after {
+    background-color: #3c3faa;
+  }
+
+  .breadcrumb-arrow {
+    color: rgba(100, 100, 160, 0.6); /* Darker arrows for light mode */
+  }
+
+  .current-page {
+    color: #1a1a2e; /* Dark text for current page in light mode */
+  }
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(8px)) {
+  .breadcrumb-nav {
+    background-color: rgba(30, 30, 40, 0.95);
+  }
+
+  @media (prefers-color-scheme: light) {
+    .breadcrumb-nav {
+      background-color: rgba(250, 250, 255, 0.95);
+    }
+  }
+}
+
+/* Smooth transition when switching between dark/light modes */
+@media (prefers-reduced-motion: no-preference) {
+  .breadcrumb-nav {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .breadcrumb-nav a,
+  .breadcrumb-nav span,
+  .breadcrumb-arrow {
+    transition:
+      color 0.3s ease,
+      transform 0.2s ease;
+  }
+}

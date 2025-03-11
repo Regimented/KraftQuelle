@@ -1,0 +1,163 @@
+@import "./fonts.css";
+
+.minimap {
+  position: fixed;
+  top: 14rem; /* Moved lower to align with SideNav */
+  right: calc(
+    (100% - 1700px) / 2 + 15px
+  ); /* Position relative to max-width container */
+  width: 200px; /* Fixed width */
+  padding: 1rem;
+  z-index: 5;
+  max-height: calc(100vh - 16rem);
+  overflow-y: auto;
+
+  /* Futuristic edge rounding - complement content styling */
+  border-radius: 16px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 28px;
+
+  /* Outstanding shadows */
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(180, 180, 255, 0.08),
+    0 0 12px rgba(100, 108, 255, 0.15),
+    inset 0 0 18px rgba(36, 36, 44, 0.7);
+
+  /* Edge highlighting */
+  border: 1px solid rgba(100, 108, 255, 0.08);
+
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 108, 255, 0.3) rgba(36, 36, 44, 0.5);
+
+  /* Subtle animation */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Webkit scrollbar styling */
+.minimap::-webkit-scrollbar {
+  width: 6px;
+}
+
+.minimap::-webkit-scrollbar-track {
+  background: rgba(36, 36, 44, 0.5);
+  border-radius: 3px;
+}
+
+.minimap::-webkit-scrollbar-thumb {
+  background: rgba(100, 108, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Add highlight to bottom edge */
+.minimap::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+/* Add highlighting to left edge */
+.minimap::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 0;
+  width: 1px;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.minimap ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.minimap li {
+  font-size: 1rem;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #68827b;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 12px;
+  font-family: "Signika Negative", sans-serif;
+  font-weight: 400;
+}
+
+.minimap li:hover {
+  color: #646cff;
+  text-shadow: 0 0 8px rgba(100, 108, 255, 0.3);
+  transform: translateX(2px);
+}
+
+.minimap li.active {
+  color: #646cff;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(100, 108, 255, 0.4);
+}
+
+/* Active item indicator */
+.minimap li.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: linear-gradient(
+    180deg,
+    rgba(100, 108, 255, 0.4),
+    rgba(100, 108, 255, 0.8),
+    rgba(100, 108, 255, 0.4)
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(100, 108, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1700px) {
+  .minimap {
+    right: 15px; /* Fixed margin on smaller screens */
+  }
+}
+
+@media (max-width: 1100px) {
+  .minimap {
+    width: 150px;
+    right: 15px;
+  }
+
+  .minimap li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .minimap {
+    position: static; /* Stack below content on small screens */
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(
+      145deg,
+      rgb(32, 32, 40) 0%,
+      rgb(38, 38, 46) 50%,
+      rgb(40, 40, 48) 100%
+    );
+    max-height: none;
+  }
+
+  .minimap li {
+    font-size: a.85rem;
+  }
+}

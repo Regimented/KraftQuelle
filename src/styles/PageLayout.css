@@ -1,0 +1,246 @@
+@import "./fonts.css";
+
+.page-layout {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1700px; /* Match with breadcrumb max-width */
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-top: 3.5rem; /* Space for fixed Breadcrumb */
+  position: relative;
+  color: #cad0d7;
+  font-family: "Signika Negative", sans-serif;
+  font-weight: 400;
+}
+
+.content {
+  padding: 2rem;
+  padding-left: 280px; /* Space for SideNav (250px + 30px gap) */
+  padding-right: 230px; /* Space for Minimap (200px + 30px gap) */
+  margin-top: 8rem; /* Reduced from 12rem to account for fixed Breadcrumb */
+  max-width: 1700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  background-color: rgb(36, 36, 44);
+
+  /* Futuristic edge rounding */
+  border-radius: 18px;
+  border-top-left-radius: 170px;
+  border-bottom-right-radius: 170px;
+
+  /* Outstanding shadows */
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(180, 180, 255, 0.1),
+    0 0 15px rgba(100, 108, 255, 0.2),
+    inset 0 0 20px rgba(36, 36, 44, 0.8);
+
+  /* Edge highlighting */
+  border: 1px solid rgba(100, 108, 255, 0.1);
+
+  /* Create glowing edges effect */
+  position: relative;
+  overflow: hidden;
+
+  /* Add subtle gradient background for depth */
+  background: linear-gradient(
+    135deg,
+    rgb(42, 52, 52) 0%,
+    rgb(36, 36, 44) 40%,
+    rgb(42, 52, 52) 100%
+  );
+
+  /* Subtle animation on hover for interactive feel */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add a subtle glow when hovering or focused elements are within content */
+.content:hover,
+.content:has(:focus) {
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(180, 180, 255, 0.2),
+    0 0 20px rgba(100, 108, 255, 0.3),
+    inset 0 0 25px rgba(36, 36, 44, 0.7);
+}
+
+/* Add highlight to top edge */
+.content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(100, 108, 255, 0.3),
+    rgba(100, 108, 255, 0.5),
+    rgba(100, 108, 255, 0.3),
+    transparent
+  );
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+/* Add highlighting to right edge */
+.content::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(100, 108, 255, 0.3),
+    rgba(100, 108, 255, 0.5),
+    rgba(100, 108, 255, 0.3),
+    transparent
+  );
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.page-layout h1 {
+  font-size: 3rem;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #646cff;
+  margin-bottom: 1rem;
+}
+
+.page-layout h2 {
+  font-size: 2rem;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  color: #646cff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.page-layout p {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: inherit;
+  margin-bottom: 1rem;
+}
+
+/* Updated inline-code styling to better match syntax highlighting */
+.page-layout .inline-code {
+  font-family: "Fira Code", "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 1.5rem;
+  background-color: #112426;
+  padding: 0.2rem 0.4rem;
+  border-radius: 30px;
+  color: #9cdcfe; /* Match TypeScript variable color in VSC dark+ theme */
+}
+
+/* Styling for react-syntax-highlighter */
+.page-layout .code-block {
+  margin-bottom: 1rem !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 1rem !important;
+  font-family:
+    "Fira Code", "Consolas", "Monaco", "Courier New", monospace !important;
+}
+
+/* Keep these for backward compatibility */
+.page-layout pre {
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-layout code {
+  font-family: "Fira Code", "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 1rem;
+  color: #f8f8f2;
+}
+
+/* Large screens but no minimap */
+@media (max-width: 1100px) {
+  .content {
+    padding-right: 2rem; /* Remove space for Minimap */
+  }
+}
+
+/* Medium screens */
+@media (max-width: 768px) {
+  .page-layout {
+    padding-top: 2.5rem; /* Less space for smaller Breadcrumb */
+  }
+
+  .content {
+    padding-left: 2rem; /* Remove space for SideNav */
+    margin-top: 6rem; /* Reduced margin */
+    border-radius: 18px;
+    border-top-left-radius: 70px;
+    border-bottom-right-radius: 70px;
+  }
+
+  .page-layout h1 {
+    font-size: 2.5rem;
+  }
+
+  .page-layout h2 {
+    font-size: 1.75rem;
+  }
+
+  .page-layout p {
+    font-size: 1.25rem;
+  }
+
+  .page-layout .inline-code {
+    font-size: 0.9rem;
+  }
+
+  .page-layout code,
+  .page-layout .code-block {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .page-layout {
+    padding-top: 2rem;
+  }
+
+  .content {
+    padding: 1rem;
+    margin-top: 5rem;
+  }
+
+  .page-layout h1 {
+    font-size: 2rem;
+  }
+
+  .page-layout h2 {
+    font-size: 1.5rem;
+  }
+
+  .page-layout p {
+    font-size: 1rem;
+  }
+
+  .page-layout .inline-code {
+    font-size: 0.85rem;
+  }
+
+  .page-layout code,
+  .page-layout .code-block {
+    font-size: 0.85rem !important;
+  }
+}
