@@ -12,7 +12,7 @@ import FunctionReturnTypes from "./Pages/ProgrammingSoftwareDevelopment/Programm
 
 function App() {
   return (
-    <Router>
+    <Router basename="/KraftQuelle">
       <Breadcrumb />
       <Routes>
         <Route path="/" element={<Home />} />
