@@ -7,23 +7,26 @@ const ArrowFunctions: React.FC = () => {
     <Layout>
       <h1>Arrow Functions</h1>
       <p>
-        Arrow functions in TypeScript build upon the concise syntax introduced in ES6 JavaScript,
-        adding powerful type annotations that enhance code reliability and maintainability.
-        These functions provide a more compact alternative to traditional function expressions,
-        with implicit returns for single expressions, lexical binding of the 'this' keyword,
-        and seamless integration with TypeScript's type system. For developers working on modern
-        web applications, mastering arrow functions with proper type annotations is essential
-        for writing clear, predictable, and type-safe code. This guide explores the syntax,
-        use cases, and TypeScript-specific features of arrow functions, demonstrating how they
-        combine JavaScript's expressiveness with TypeScript's robust type checking to produce
-        elegant and reliable code.
+        Arrow functions in TypeScript build upon the concise syntax introduced
+        in ES6 JavaScript, adding powerful type annotations that enhance code
+        reliability and maintainability. These functions provide a more compact
+        alternative to traditional function expressions, with implicit returns
+        for single expressions, lexical binding of the 'this' keyword, and
+        seamless integration with TypeScript's type system. For developers
+        working on modern web applications, mastering arrow functions with
+        proper type annotations is essential for writing clear, predictable, and
+        type-safe code. This guide explores the syntax, use cases, and
+        TypeScript-specific features of arrow functions, demonstrating how they
+        combine JavaScript's expressiveness with TypeScript's robust type
+        checking to produce elegant and reliable code.
       </p>
       <br />
       <p>
-        Arrow functions offer several advantages in TypeScript: they provide a more concise syntax
-        for simple functions, maintain lexical scoping of 'this' which prevents common bugs in event
-        handlers and callbacks, and support the full range of TypeScript's type annotations for
-        parameters and return types. The basic syntax follows the pattern:{" "}
+        Arrow functions offer several advantages in TypeScript: they provide a
+        more concise syntax for simple functions, maintain lexical scoping of
+        'this' which prevents common bugs in event handlers and callbacks, and
+        support the full range of TypeScript's type annotations for parameters
+        and return types. The basic syntax follows the pattern:{" "}
         <span className="inline-code">
           (param1: Type1, param2: Type2): ReturnType =&gt; expression
         </span>{" "}
@@ -36,13 +39,15 @@ const ArrowFunctions: React.FC = () => {
       <br />
       <h2 id="basic-arrow-function-syntax">1. Basic Arrow Function Syntax</h2>
       <p>
-        TypeScript arrow functions follow the same syntax as JavaScript arrow functions with the addition
-        of type annotations. The basic form consists of parameters (optionally typed), followed by the arrow
-        (=&gt;) operator, followed by either an expression (implicit return) or a block of statements
-        (explicit return required). Arrow functions are particularly useful for short, one-line operations
-        where the more concise syntax improves readability. They also automatically capture the 'this'
-        value from their surrounding context, avoiding a common source of bugs in traditional function
-        expressions.
+        TypeScript arrow functions follow the same syntax as JavaScript arrow
+        functions with the addition of type annotations. The basic form consists
+        of parameters (optionally typed), followed by the arrow (=&gt;)
+        operator, followed by either an expression (implicit return) or a block
+        of statements (explicit return required). Arrow functions are
+        particularly useful for short, one-line operations where the more
+        concise syntax improves readability. They also automatically capture the
+        'this' value from their surrounding context, avoiding a common source of
+        bugs in traditional function expressions.
       </p>
       <CodeBlock>
         {`// Basic arrow function with implicit return
@@ -72,21 +77,26 @@ console.log(doubled);           // Returns: [2, 4, 6, 8, 10]
 console.log(evens);             // Returns: [2, 4]`}
       </CodeBlock>
       <p>
-        The simplicity of arrow functions makes them ideal for callback functions, array method chains,
-        and other situations where a small, focused function is needed. TypeScript's type annotations
-        ensure that these concise functions maintain type safety, allowing you to write clean, compact
-        code without sacrificing the benefits of static typing.
+        The simplicity of arrow functions makes them ideal for callback
+        functions, array method chains, and other situations where a small,
+        focused function is needed. TypeScript's type annotations ensure that
+        these concise functions maintain type safety, allowing you to write
+        clean, compact code without sacrificing the benefits of static typing.
       </p>
       <br />
 
-      <h2 id="type-annotations-in-arrow-functions">2. Type Annotations in Arrow Functions</h2>
+      <h2 id="type-annotations-in-arrow-functions">
+        2. Type Annotations in Arrow Functions
+      </h2>
       <p>
-        Type annotations in arrow functions can be applied to parameters, return values, and the function itself.
-        With TypeScript's type inference, you can often omit explicit return types for simple expressions, but
-        adding them improves code documentation and prevents accidental type changes. Parameter types can be
-        specified individually or through interfaces, type aliases, or generics. TypeScript provides several
-        ways to define function types, including using the Function type, function type expressions, and
-        interfaces or type aliases with call signatures.
+        Type annotations in arrow functions can be applied to parameters, return
+        values, and the function itself. With TypeScript's type inference, you
+        can often omit explicit return types for simple expressions, but adding
+        them improves code documentation and prevents accidental type changes.
+        Parameter types can be specified individually or through interfaces,
+        type aliases, or generics. TypeScript provides several ways to define
+        function types, including using the Function type, function type
+        expressions, and interfaces or type aliases with call signatures.
       </p>
       <CodeBlock>
         {`// Parameter and return type annotations
@@ -120,22 +130,28 @@ console.log(firstElement([1, 2, 3]));         // Returns: 1
 console.log(firstElement(["a", "b", "c"]));   // Returns: "a"`}
       </CodeBlock>
       <p>
-        TypeScript's advanced type system allows for precise typing of arrow functions, ensuring type safety
-        across complex operations. While type inference can often determine the correct types, explicitly
-        annotating function parameters and return types serves as valuable documentation and helps catch
-        errors during development rather than runtime. This combination of concise syntax and strong typing
-        makes arrow functions particularly powerful in TypeScript projects.
+        TypeScript's advanced type system allows for precise typing of arrow
+        functions, ensuring type safety across complex operations. While type
+        inference can often determine the correct types, explicitly annotating
+        function parameters and return types serves as valuable documentation
+        and helps catch errors during development rather than runtime. This
+        combination of concise syntax and strong typing makes arrow functions
+        particularly powerful in TypeScript projects.
       </p>
       <br />
 
-      <h2 id="arrow-functions-with-object-destructuring">3. Arrow Functions with Object Destructuring</h2>
+      <h2 id="arrow-functions-with-object-destructuring">
+        3. Arrow Functions with Object Destructuring
+      </h2>
       <p>
-        Arrow functions in TypeScript work seamlessly with object destructuring, allowing you to extract and
-        type specific properties from objects passed as parameters. This approach makes functions more readable
-        by clarifying which properties are being used while maintaining type safety. TypeScript provides several
-        ways to annotate destructured parameters, including inline annotations, type aliases, interfaces, and
-        optional properties. This pattern is particularly useful when working with API responses, component
-        props, or configuration objects.
+        Arrow functions in TypeScript work seamlessly with object destructuring,
+        allowing you to extract and type specific properties from objects passed
+        as parameters. This approach makes functions more readable by clarifying
+        which properties are being used while maintaining type safety.
+        TypeScript provides several ways to annotate destructured parameters,
+        including inline annotations, type aliases, interfaces, and optional
+        properties. This pattern is particularly useful when working with API
+        responses, component props, or configuration objects.
       </p>
       <CodeBlock>
         {`// Basic destructuring with type annotations
@@ -191,23 +207,29 @@ console.log(getCompanyLocation(company));     // Returns: "Acme Inc is located i
 console.log(summarizeProduct(product));       // Returns object with id, name, and detailsProvided properties`}
       </CodeBlock>
       <p>
-        Object destructuring in arrow functions helps create more maintainable code by making parameter
-        usage explicit and reducing the need to reference deeply nested properties. TypeScript enhances
-        this pattern by ensuring that destructured properties match the expected types and by providing
-        autocompletion in development environments. When combined with default values, optional properties,
-        and rest parameters, destructured arrow functions become a powerful tool for handling complex
-        data structures in a type-safe manner.
+        Object destructuring in arrow functions helps create more maintainable
+        code by making parameter usage explicit and reducing the need to
+        reference deeply nested properties. TypeScript enhances this pattern by
+        ensuring that destructured properties match the expected types and by
+        providing autocompletion in development environments. When combined with
+        default values, optional properties, and rest parameters, destructured
+        arrow functions become a powerful tool for handling complex data
+        structures in a type-safe manner.
       </p>
       <br />
 
-      <h2 id="using-arrow-functions-with-higher-order-functions">4. Using Arrow Functions with Higher-Order Functions</h2>
+      <h2 id="using-arrow-functions-with-higher-order-functions">
+        4. Using Arrow Functions with Higher-Order Functions
+      </h2>
       <p>
-        Arrow functions excel when used with higher-order functions—functions that take other functions as
-        arguments or return them as results. TypeScript adds type safety to these patterns, ensuring that
-        callbacks match the expected parameter and return types. Common higher-order functions include Array
-        methods like map, filter, and reduce, as well as custom utilities for operations like memoization,
-        function composition, and partial application. TypeScript's type system helps prevent errors in these
-        complex functional programming patterns.
+        Arrow functions excel when used with higher-order functions—functions
+        that take other functions as arguments or return them as results.
+        TypeScript adds type safety to these patterns, ensuring that callbacks
+        match the expected parameter and return types. Common higher-order
+        functions include Array methods like map, filter, and reduce, as well as
+        custom utilities for operations like memoization, function composition,
+        and partial application. TypeScript's type system helps prevent errors
+        in these complex functional programming patterns.
       </p>
       <CodeBlock>
         {`// Arrow functions with array methods
@@ -246,23 +268,30 @@ console.log(transformNumber(3));        // Returns: 64 (square(double(addOne(3))
 console.log(add5(10));                  // Returns: 15`}
       </CodeBlock>
       <p>
-        Higher-order functions with arrow functions create powerful abstractions that can simplify complex
-        operations. TypeScript enhances this approach by tracking types throughout the function chain,
-        providing type checking and autocompletion at each step. The concise syntax of arrow functions
-        makes these functional patterns more readable, while TypeScript's type system ensures they remain
-        maintainable even as the codebase grows. This combination is particularly valuable in reactive
-        programming, data processing, and UI development where functional patterns are commonly used.
+        Higher-order functions with arrow functions create powerful abstractions
+        that can simplify complex operations. TypeScript enhances this approach
+        by tracking types throughout the function chain, providing type checking
+        and autocompletion at each step. The concise syntax of arrow functions
+        makes these functional patterns more readable, while TypeScript's type
+        system ensures they remain maintainable even as the codebase grows. This
+        combination is particularly valuable in reactive programming, data
+        processing, and UI development where functional patterns are commonly
+        used.
       </p>
       <br />
 
-      <h2 id="this-binding-in-arrow-functions">5. 'this' Binding in Arrow Functions</h2>
+      <h2 id="this-binding-in-arrow-functions">
+        5. 'this' Binding in Arrow Functions
+      </h2>
       <p>
-        One of the most significant features of arrow functions is their lexical binding of the 'this' keyword.
-        Unlike traditional functions, which define their own 'this' context based on how they're called, arrow
-        functions inherit 'this' from the surrounding scope. This behavior is particularly valuable in
-        TypeScript classes, React components, and event handlers where maintaining the correct 'this' context
-        is crucial. TypeScript enhances this feature by providing proper typing for 'this' and flagging
-        potential context issues.
+        One of the most significant features of arrow functions is their lexical
+        binding of the 'this' keyword. Unlike traditional functions, which
+        define their own 'this' context based on how they're called, arrow
+        functions inherit 'this' from the surrounding scope. This behavior is
+        particularly valuable in TypeScript classes, React components, and event
+        handlers where maintaining the correct 'this' context is crucial.
+        TypeScript enhances this feature by providing proper typing for 'this'
+        and flagging potential context issues.
       </p>
       <CodeBlock>
         {`// The "this" problem in traditional functions
@@ -326,25 +355,31 @@ const submitButton = new Button("Submit");
 submitButton.render();  // When clicked, logs "Submit button clicked"`}
       </CodeBlock>
       <p>
-        The lexical 'this' binding in arrow functions solves one of the most common sources of bugs in
-        JavaScript, especially when working with callbacks, event handlers, and asynchronous code. In
-        TypeScript, this feature is enhanced with static type checking to ensure that 'this' references
-        are valid. When working with classes and object methods, arrow functions eliminate the need for
-        workarounds like binding methods in constructors or using closure variables to capture the correct
-        context. This leads to cleaner, more maintainable code that correctly handles the 'this' context
-        in all situations.
+        The lexical 'this' binding in arrow functions solves one of the most
+        common sources of bugs in JavaScript, especially when working with
+        callbacks, event handlers, and asynchronous code. In TypeScript, this
+        feature is enhanced with static type checking to ensure that 'this'
+        references are valid. When working with classes and object methods,
+        arrow functions eliminate the need for workarounds like binding methods
+        in constructors or using closure variables to capture the correct
+        context. This leads to cleaner, more maintainable code that correctly
+        handles the 'this' context in all situations.
       </p>
       <br />
 
-      <h2 id="limitations-and-considerations">6. Limitations and Considerations</h2>
+      <h2 id="limitations-and-considerations">
+        6. Limitations and Considerations
+      </h2>
       <p>
-        While arrow functions offer many advantages, they also have limitations and specific use cases
-        where traditional functions might be more appropriate. Arrow functions cannot be used as constructors,
-        don't have their own 'arguments' object, cannot have their 'this' context changed with call(), apply(),
-        or bind(), and might not be suitable for methods that need to access the prototype chain. TypeScript
-        helps identify these limitations through its type system, flagging errors when arrow functions are
-        used inappropriately. Understanding these constraints helps developers choose the right function
-        syntax for each situation.
+        While arrow functions offer many advantages, they also have limitations
+        and specific use cases where traditional functions might be more
+        appropriate. Arrow functions cannot be used as constructors, don't have
+        their own 'arguments' object, cannot have their 'this' context changed
+        with call(), apply(), or bind(), and might not be suitable for methods
+        that need to access the prototype chain. TypeScript helps identify these
+        limitations through its type system, flagging errors when arrow
+        functions are used inappropriately. Understanding these constraints
+        helps developers choose the right function syntax for each situation.
       </p>
       <CodeBlock>
         {`// Cannot use arrow functions as constructors
@@ -404,23 +439,28 @@ class Child extends Parent {
 }`}
       </CodeBlock>
       <p>
-        Understanding when to use arrow functions and when to prefer traditional function syntax is key
-        to writing effective TypeScript code. In general, arrow functions excel for short, non-method
-        functions where lexical 'this' binding is beneficial, such as callbacks, event handlers, and
-        functional programming patterns. Traditional functions remain better for constructors, prototype
-        methods, functions that need their own 'this' binding, and methods that use 'super' or 'arguments'.
-        TypeScript's type system helps guide these decisions by flagging inappropriate uses and ensuring
-        type safety regardless of which function style you choose.
+        Understanding when to use arrow functions and when to prefer traditional
+        function syntax is key to writing effective TypeScript code. In general,
+        arrow functions excel for short, non-method functions where lexical
+        'this' binding is beneficial, such as callbacks, event handlers, and
+        functional programming patterns. Traditional functions remain better for
+        constructors, prototype methods, functions that need their own 'this'
+        binding, and methods that use 'super' or 'arguments'. TypeScript's type
+        system helps guide these decisions by flagging inappropriate uses and
+        ensuring type safety regardless of which function style you choose.
       </p>
       <br />
       <p>
-        Arrow functions are a powerful feature in TypeScript that combine concise syntax with robust
-        type checking. They simplify callback-heavy code, eliminate common 'this' binding issues, and
-        integrate seamlessly with TypeScript's type system. By mastering arrow functions with proper
-        type annotations, you can write more expressive, maintainable, and error-resistant code.
-        Whether you're working with functional programming patterns, class methods, or asynchronous
-        operations, TypeScript's implementation of arrow functions provides the right balance of
-        convenience and type safety to improve your development experience and code quality.
+        Arrow functions are a powerful feature in TypeScript that combine
+        concise syntax with robust type checking. They simplify callback-heavy
+        code, eliminate common 'this' binding issues, and integrate seamlessly
+        with TypeScript's type system. By mastering arrow functions with proper
+        type annotations, you can write more expressive, maintainable, and
+        error-resistant code. Whether you're working with functional programming
+        patterns, class methods, or asynchronous operations, TypeScript's
+        implementation of arrow functions provides the right balance of
+        convenience and type safety to improve your development experience and
+        code quality.
       </p>
     </Layout>
   );
