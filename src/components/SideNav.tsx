@@ -29,7 +29,7 @@ function SideNav({ navItems, basePath, section }: SideNavProps) {
 
   const { navigationItems, navigationBasePath } = useMemo(() => {
     const items =
-      navItems || getNavigationItemsFromPath(currentSection, location.pathname);
+      navItems || getNavigationItemsFromPath(currentSection);
     const path = basePath || getBasePathFromSection(currentSection);
     return { navigationItems: items, navigationBasePath: path };
   }, [navItems, basePath, currentSection, location.pathname]);
@@ -278,7 +278,7 @@ function getCurrentSectionFromPath(path: string): string {
   return "";
 }
 
-function getNavigationItemsFromPath(section: string, path: string): NavItem[] {
+function getNavigationItemsFromPath(section: string): NavItem[] {
   if (section) {
     const { navItems } = getNavigationForSection(section);
     return navItems;
