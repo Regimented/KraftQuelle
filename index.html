@@ -10,4 +10,15 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+
+  <script>
+    (function () {
+      if (sessionStorage.redirect) {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        const pathname = new URL(redirect).pathname;
+        history.replaceState(null, null, pathname);
+      }
+    })();
+  </script>
 </html>
