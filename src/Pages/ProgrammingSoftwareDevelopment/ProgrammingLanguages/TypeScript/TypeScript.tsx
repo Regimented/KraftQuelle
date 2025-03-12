@@ -1,15 +1,11 @@
-import "../../../../styles/PageLayout.css";
-import SideNav from "../../../../components/SideNav";
+import Layout from "../../../../components/Layout";
 
 function TypeScript() {
   return (
-    <div className="typescript-page">
-      <SideNav />
-      <div className="content">
-        <h1>TypeScript</h1>
-        <p>This is the TypeScript page.</p>
-      </div>
-    </div>
+    <Layout section="typescript">
+      <h1>TypeScript</h1>
+      <p>This is the TypeScript page.</p>
+    </Layout>
   );
 }
 

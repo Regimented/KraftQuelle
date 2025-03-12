@@ -1,49 +1,146 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/SideNav.css";
+import { getNavigationForSection } from "../config/navigation";
 
-function SideNav() {
+export interface NavItem {
+  title: string;
+  path: string;
+  children?: NavItem[];
+}
+
+interface SideNavProps {
+  navItems?: NavItem[];
+  basePath?: string;
+  section?: string;
+}
+
+const OPEN_SECTIONS_STORAGE_KEY = "sideNavOpenSections";
+
+function SideNav({ navItems, basePath, section }: SideNavProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(window.innerWidth > 768);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(
-    location.pathname.includes("/functions")
-  );
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const initialRenderRef = useRef(true);
 
-  useEffect(() => {
-    setIsDropdownOpen(location.pathname.includes("/functions"));
-  }, [location.pathname]);
+  const currentSection =
+    section || getCurrentSectionFromPath(location.pathname);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
+  const { navigationItems, navigationBasePath } = useMemo(() => {
+    const items =
+      navItems || getNavigationItemsFromPath(currentSection, location.pathname);
+    const path = basePath || getBasePathFromSection(currentSection);
+    return { navigationItems: items, navigationBasePath: path };
+  }, [navItems, basePath, currentSection, location.pathname]);
 
-      if (window.innerWidth > 768) {
-        setIsOpen(true);
-      } else if (!mobile && isOpen) {
-        setIsOpen(true);
-      } else {
-        setIsOpen(false);
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>(
+    () => {
+      try {
+        const savedOpenSections = localStorage.getItem(
+          OPEN_SECTIONS_STORAGE_KEY
+        );
+        if (savedOpenSections) {
+          return JSON.parse(savedOpenSections);
+        }
+      } catch (error) {
+        console.error("Error loading saved navigation state:", error);
       }
-    };
+      return {};
+    }
+  );
 
+  useEffect(() => {
+    if (!initialRenderRef.current) {
+      try {
+        localStorage.setItem(
+          OPEN_SECTIONS_STORAGE_KEY,
+          JSON.stringify(openSections)
+        );
+      } catch (error) {
+        console.error("Error saving navigation state:", error);
+      }
+    }
+  }, [openSections]);
+
+  useEffect(() => {
+    if (!initialRenderRef.current) return;
+    initialRenderRef.current = false;
+
+    if (navigationItems) {
+      let shouldUpdateState = false;
+      const newOpenSections = { ...openSections };
+
+      navigationItems.forEach((item) => {
+        if (item.children) {
+          const sectionPath = `${navigationBasePath}${item.path}`;
+          const isInSection = location.pathname.startsWith(sectionPath);
+
+          if (isInSection && openSections[item.title] === undefined) {
+            newOpenSections[item.title] = true;
+            shouldUpdateState = true;
+          }
+        }
+      });
+
+      if (shouldUpdateState) {
+        setOpenSections(newOpenSections);
+      }
+    }
+  }, [navigationItems, navigationBasePath, location.pathname, openSections]);
+
+  const handleResize = useCallback(() => {
+    const mobile = window.innerWidth <= 768;
+    setIsMobile(mobile);
+    setIsOpen(window.innerWidth > 768);
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
+  }, [handleResize]);
 
-  const handleLinkClick = () => {
-    if (isMobile) {
-      setIsOpen(false);
-    }
-  };
+  const handleNavigation = useCallback(
+    (
+      e: React.MouseEvent<HTMLAnchorElement>,
+      path: string,
+      currentPath: string
+    ) => {
+      if (currentPath === path) {
+        e.preventDefault();
+        return;
+      }
+
+      if (isMobile) {
+        setIsOpen(false);
+      }
+
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+        return;
+      }
+
+      e.preventDefault();
+      navigate(path);
+    },
+    [navigate, isMobile]
+  );
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const basePath =
-    "/programming-software-development/programming-languages/typescript";
+  const toggleDropdown = (e: React.MouseEvent, title: string) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpenSections((prev) => ({
+      ...prev,
+      [title]: !prev[title],
+    }));
+  };
+
   const isActive = (path: string) => location.pathname === path;
+
+  if (!navigationItems || navigationItems.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -51,6 +148,7 @@ function SideNav() {
       {!isOpen && isMobile && (
         <div className="hamburger-container">
           <button
+            type="button"
             className="hamburger"
             onClick={toggleMenu}
             aria-label="Open navigation menu"
@@ -70,6 +168,7 @@ function SideNav() {
           {isMobile && isOpen && (
             <div className="close-button-container">
               <button
+                type="button"
                 className="close-button"
                 onClick={toggleMenu}
                 aria-label="Close navigation menu"
@@ -80,71 +179,119 @@ function SideNav() {
           )}
 
           <div className="sidenav-content">
-            <div className="sidenav-item">
-              <button className="dropdown-toggle" onClick={toggleDropdown}>
-                <span>Functions</span>{" "}
-                <span className={`arrow ${isDropdownOpen ? "down" : "right"}`}>
-                  {isDropdownOpen ? "▼" : "▶"}
-                </span>
-              </button>
-              <ul className={`dropdown-menu ${isDropdownOpen ? "open" : ""}`}>
-                <li>
+            {navigationItems.map((item) => (
+              <div className="sidenav-item" key={item.title}>
+                {item.children ? (
+                  <>
+                    <button
+                      type="button"
+                      className="dropdown-toggle"
+                      onClick={(e) => toggleDropdown(e, item.title)}
+                    >
+                      <span>{item.title}</span>{" "}
+                      <span
+                        className={`arrow ${openSections[item.title] ? "down" : "right"}`}
+                      >
+                        {openSections[item.title] ? "▼" : "▶"}
+                      </span>
+                    </button>
+                    <ul
+                      className={`dropdown-menu ${openSections[item.title] ? "open" : ""}`}
+                    >
+                      {/* Render overview link */}
+                      <li>
+                        <Link
+                          to={`${navigationBasePath}${item.path}`}
+                          className={
+                            isActive(`${navigationBasePath}${item.path}`)
+                              ? "active"
+                              : ""
+                          }
+                          onClick={(e) =>
+                            handleNavigation(
+                              e,
+                              `${navigationBasePath}${item.path}`,
+                              location.pathname
+                            )
+                          }
+                        >
+                          {item.title} Overview
+                        </Link>
+                      </li>
+                      {/* Render child links */}
+                      {item.children.map((child) => (
+                        <li key={child.title}>
+                          <Link
+                            to={`${navigationBasePath}${item.path}/${child.path}`}
+                            className={
+                              isActive(
+                                `${navigationBasePath}${item.path}/${child.path}`
+                              )
+                                ? "active"
+                                : ""
+                            }
+                            onClick={(e) =>
+                              handleNavigation(
+                                e,
+                                `${navigationBasePath}${item.path}/${child.path}`,
+                                location.pathname
+                              )
+                            }
+                          >
+                            {child.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
                   <Link
-                    to={`${basePath}/functions`}
+                    to={`${navigationBasePath}${item.path}`}
                     className={
-                      isActive(`${basePath}/functions`) ? "active" : ""
-                    }
-                    onClick={handleLinkClick}
-                  >
-                    Functions Overview
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={`${basePath}/functions/function-syntax`}
-                    className={
-                      isActive(`${basePath}/functions/function-syntax`)
+                      isActive(`${navigationBasePath}${item.path}`)
                         ? "active"
                         : ""
                     }
-                    onClick={handleLinkClick}
-                  >
-                    Function Syntax
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={`${basePath}/functions/arrow-functions`}
-                    className={
-                      isActive(`${basePath}/functions/arrow-functions`)
-                        ? "active"
-                        : ""
+                    onClick={(e) =>
+                      handleNavigation(
+                        e,
+                        `${navigationBasePath}${item.path}`,
+                        location.pathname
+                      )
                     }
-                    onClick={handleLinkClick}
                   >
-                    Arrow Functions
+                    {item.title}
                   </Link>
-                </li>
-                <li>
-                  <Link
-                    to={`${basePath}/functions/function-return-types`}
-                    className={
-                      isActive(`${basePath}/functions/function-return-types`)
-                        ? "active"
-                        : ""
-                    }
-                    onClick={handleLinkClick}
-                  >
-                    Function Return Types
-                  </Link>
-                </li>
-              </ul>
-            </div>
+                )}
+              </div>
+            ))}
           </div>
         </nav>
       </div>
     </>
   );
+}
+
+function getCurrentSectionFromPath(path: string): string {
+  if (path.includes("/typescript")) return "typescript";
+
+  return "";
+}
+
+function getNavigationItemsFromPath(section: string, path: string): NavItem[] {
+  if (section) {
+    const { navItems } = getNavigationForSection(section);
+    return navItems;
+  }
+  return [];
+}
+
+function getBasePathFromSection(section: string): string {
+  if (section) {
+    const { basePath } = getNavigationForSection(section);
+    return basePath;
+  }
+  return "";
 }
 
 export default SideNav;
