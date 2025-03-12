@@ -1,16 +1,12 @@
-import "../../../../../styles/PageLayout.css";
-import SideNav from "../../../../../components/SideNav";
+import Layout from "../../../../../components/Layout";
 
-function Functions() {
+function FunctionSyntax() {
   return (
-    <div className="typescript-page">
-      <SideNav />
-      <div className="content">
-        <h1>33333</h1>
-        <p>Overview of functions in TypeScript.</p>
-      </div>
-    </div>
+    <Layout section="typescript">
+      <h1>Function Syntax</h1>
+      <p>Learn about TypeScript function syntax.</p>
+    </Layout>
   );
 }
 
-export default Functions;
+export default FunctionSyntax;

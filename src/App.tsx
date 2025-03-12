@@ -9,6 +9,9 @@ import Functions from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguag
 import FunctionSyntax from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Functions/FunctionSyntax";
 import ArrowFunctions from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Functions/ArrowFunctions";
 import FunctionReturnTypes from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Functions/FunctionReturnTypes";
+import Loops from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Loops";
+import ForLoop from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Loops/ForLoop";
+import WhileLoop from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Loops/WhileLoop";
 
 function App() {
   return (
@@ -29,6 +32,7 @@ function App() {
           path="/programming-software-development/programming-languages/typescript"
           element={<TypeScript />}
         />
+        {/* Function routes */}
         <Route
           path="/programming-software-development/programming-languages/typescript/functions"
           element={<Functions />}
@@ -44,6 +48,19 @@ function App() {
         <Route
           path="/programming-software-development/programming-languages/typescript/functions/function-return-types"
           element={<FunctionReturnTypes />}
+        />
+        {/* New Loop routes */}
+        <Route
+          path="/programming-software-development/programming-languages/typescript/loops"
+          element={<Loops />}
+        />
+        <Route
+          path="/programming-software-development/programming-languages/typescript/loops/for-loops"
+          element={<ForLoop />}
+        />
+        <Route
+          path="/programming-software-development/programming-languages/typescript/loops/while-loops"
+          element={<WhileLoop />}
         />
       </Routes>
     </Router>
