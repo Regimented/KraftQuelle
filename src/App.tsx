@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Breadcrumb from "./components/Breadcrumb";
 import Home from "./Pages/Home";
-import German from "./Pages/German";
+import GermanLanguage from "./Pages/Languages/German";
+import EnglishLanguage from "./Pages/Languages/English";
 import ProgrammingSoftwareDevelopment from "./Pages/ProgrammingSoftwareDevelopment";
 import ProgrammingLanguages from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages";
 import TypeScript from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/TypeScript";
@@ -12,6 +13,7 @@ import FunctionReturnTypes from "./Pages/ProgrammingSoftwareDevelopment/Programm
 import Loops from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Loops";
 import ForLoop from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Loops/ForLoop";
 import WhileLoop from "./Pages/ProgrammingSoftwareDevelopment/ProgrammingLanguages/TypeScript/Loops/WhileLoop";
+import Languages from "./Pages/Languages";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
       <Breadcrumb />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/german" element={<German />} />
+        <Route path="/languages" element={<Languages />} />
+        <Route path="/german" element={<GermanLanguage />} />
+        <Route path="/english" element={<EnglishLanguage />} />
         <Route
           path="/programming-software-development"
           element={<ProgrammingSoftwareDevelopment />}
@@ -32,7 +36,6 @@ function App() {
           path="/programming-software-development/programming-languages/typescript"
           element={<TypeScript />}
         />
-        {/* Function routes */}
         <Route
           path="/programming-software-development/programming-languages/typescript/functions"
           element={<Functions />}
@@ -49,7 +52,6 @@ function App() {
           path="/programming-software-development/programming-languages/typescript/functions/function-return-types"
           element={<FunctionReturnTypes />}
         />
-        {/* New Loop routes */}
         <Route
           path="/programming-software-development/programming-languages/typescript/loops"
           element={<Loops />}
